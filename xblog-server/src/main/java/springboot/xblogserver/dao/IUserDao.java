@@ -1,6 +1,6 @@
 package springboot.xblogserver.dao;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 import springboot.xblogserver.domain.User;
 
 /**
@@ -8,5 +8,6 @@ import springboot.xblogserver.domain.User;
  * @date 2020/3/23 21:32
  * 用户Dao接口类
  */
-public interface UserDao extends BaseMapper<User> {
+public interface IUserDao {
+    User loadUserByUsername(@Param("username") String username);
 }

@@ -1,11 +1,17 @@
 package springboot.xblogserver.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import springboot.xblogserver.dao.UserDao;
+import springboot.xblogserver.dao.IRoleDao;
+import springboot.xblogserver.dao.IUserDao;
+import springboot.xblogserver.domain.Role;
 import springboot.xblogserver.domain.User;
 import springboot.xblogserver.service.IUserService;
+
+import java.util.List;
 
 /**
  * @author CHY
@@ -13,17 +19,22 @@ import springboot.xblogserver.service.IUserService;
  * 用户Service实现类
  */
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl implements IUserService, UserDetailsService {
 
     @Autowired
-    private UserDao userDao;
+    private IUserDao userDao;
+    @Autowired
+    private IRoleDao roleDao;
 
     @Override
-    public User selectOne(User user){
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("username",user.getUsername());
-        wrapper.eq("password",user.getPassword());
-        return userDao.selectOne(wrapper);
-    }
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        User user = userDao.loadUserByUsername(s);
+        if (user == null)
+            return new User();
 
+        //查询用户的角色信息，存入user中
+        List<Role> roles = roleDao.getRolesByUid(user.getId());
+        user.setRoles(roles);
+        return user;
+    }
 }

@@ -1,8 +1,8 @@
 package springboot.xblogserver.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import springboot.xblogserver.domain.User;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import springboot.xblogserver.service.IUserService;
 
 /**
@@ -14,14 +14,5 @@ import springboot.xblogserver.service.IUserService;
 public class UserController {
 
     @Autowired
-    private IUserService iUserService;
-
-    @PostMapping("/login")
-    public User login(@RequestBody User user){
-        User u = iUserService.selectOne(user);
-        if (u != null) {
-            return u;
-        }
-        return new User();
-    }
+    private IUserService userService;
 }
