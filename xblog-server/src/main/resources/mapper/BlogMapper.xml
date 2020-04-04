@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="springboot.xblogserver.dao.IBlogDao">
+
+    <select id="getBlogsCountByConditions" resultType="java.lang.Integer">
+        select
+            count(*)
+        from
+            blog
+        where
+                uid=#{userId}#
+            and
+                statu=#{statu}#
+            <if test="keyword != null">
+            and
+                title like "%"#{keyword}#"%"
+            </if>
+    </select>
+    <select id="getBlogsByConditions" resultType="springboot.xblogserver.domain.Blog">
+        select
+            *
+        from
+            blog
+        where
+                uid=#{userId}#
+            and
+                statu=#{statu}#
+            <if test="keyword != null">
+            and
+                title like "%"#{keyword}#"%"
+            </if>
+        order by
+            id
+        limit
+            #{index},#{count}
+    </select>
+</mapper>

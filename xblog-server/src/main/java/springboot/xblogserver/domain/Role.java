@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
  * @description 用户角色表
  */
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Role {
     private Integer id;
     private String name;

@@ -1,7 +1,6 @@
 package springboot.xblogserver.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +14,9 @@ import java.util.List;
  * @date 2020/3/23 20:45
  * 用户实体类
  */
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class User implements UserDetails {
     @Getter
     @Setter

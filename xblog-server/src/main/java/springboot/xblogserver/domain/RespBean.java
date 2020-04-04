@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
  * @description 自定义返回
  */
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class RespBean {
     private String status;
     private String msg;
